@@ -4,13 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fund Me</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 150px;
+        }
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
- <h1>hello</h1>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.5.4/dist/ethers.umd.min.js"></script>
-    <script src="./index.js" type="module"></script>
+    <h1>Donate Please!</h1>
+
     <button id="connectBtn">Connect</button>
     <button id="fund">Fund ETH</button>
-    
+    <button id="getBalance">Get Balance</button>
+    <button id="withdraw">Withdraw</button>
+
+    <label for="ethAmount">Enter ETH amount</label>
+    <input id="ethAmount" placeholder="0.05"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.5.4/dist/ethers.umd.min.js"></script>
+    <script src="./index.js" type="module"></script>
 </body>
 </html>

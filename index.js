@@ -2,10 +2,24 @@ import { abi, contractAddress } from "./constants.js";
 
 const connectBtn = document.getElementById("connectBtn");
 const fundBtn = document.getElementById("fund");
+const balance = document.getElementById("getBalance");
+const withdraw_ = document.getElementById("withdraw");
 
 connectBtn.onclick = connect;
 fundBtn.onclick = fund;
+balance.onclick = getBalance;
+withdraw_.onclick = withdraw;
 
+
+async function getBalance () {
+  if(typeof window.ethereum !== "undefined") {
+    const provider = new window.ethers.providers.Web3Provider(window.ethereum);
+    const balance = await provider.getBalance(contractAddress);
+    console.log(ethers.utils.formatEther(balance));
+  } else {
+    fundBtn.innerHTML="Please install metamask!"; 
+  }
+}
 
 async function connect(params) {
     if(typeof window.ethereum !== "undefined") {
@@ -20,11 +34,9 @@ async function connect(params) {
 console.log("Ether",ethers);
 
 async function fund() {
-     const ethAmount = "0.01";
+     const ethAmount = document.getElementById("ethAmount").value;
      console.log(`Funding with ${ethAmount}`);
-
-    
-  if (typeof window.ethereum !== "undefined") {
+    if (typeof window.ethereum !== "undefined") {
     const provider = new window.ethers.providers.Web3Provider(window.ethereum);
     const signer = await provider.getSigner();
     const contract = new ethers.Contract(contractAddress, abi, signer);
@@ -39,6 +51,22 @@ async function fund() {
     }
   
   }
+ }
+
+ async function withdraw() {
+   if(typeof window.ethereum != "undefined") {
+    const provider = new window.ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    console.log("signer",signer);
+    const contract = new ethers.Contract(contractAddress, abi, signer);
+
+    try {
+      const transactionRes = await contract.withdraw();
+      await listenForTransationMine(transactionRes, provider);
+    } catch (error) {
+      console.log(error);
+    }
+   }
  }
 
  function listenForTransationMine(transactionResponse, provider) {
