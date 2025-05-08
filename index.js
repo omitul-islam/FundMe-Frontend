@@ -4,6 +4,7 @@ const connectBtn = document.getElementById("connectBtn");
 const fundBtn = document.getElementById("fund");
 const balance = document.getElementById("getBalance");
 const withdraw_ = document.getElementById("withdraw");
+const balanceShow = document.getElementById("balanceShow");
 
 connectBtn.onclick = connect;
 fundBtn.onclick = fund;
@@ -16,12 +17,13 @@ async function getBalance () {
     const provider = new window.ethers.providers.Web3Provider(window.ethereum);
     const balance = await provider.getBalance(contractAddress);
     console.log(ethers.utils.formatEther(balance));
+    balanceShow.innerText = `Current Fund Balance Is: ${ethers.utils.formatEther(balance)} ETH`;
   } else {
     fundBtn.innerHTML="Please install metamask!"; 
   }
 }
 
-async function connect(params) {
+async function connect() {
     if(typeof window.ethereum !== "undefined") {
     await window.ethereum.request({method: "eth_requestAccounts"});
     console.log("Connected");
